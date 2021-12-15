@@ -1,15 +1,22 @@
 name: 'Test'
 on:
   workflow_dispatch:
+    inputs:
+      tracer_url:
+        description: 'Url to download the tracer'
+        required: true
+      profiler_url:
+        description: 'Url to download the profiler'
+        required: true
 jobs:
   Explore-Artifacts:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello"
-      - run: echo "some content" > file.txt
+      - run: echo "some content" > dd-library-php.tar.gz
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: file.txt
+          name: dd-library-php.tar.gz
           path: |
-            file.txt
+            dd-library-php.tar.gz
