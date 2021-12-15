@@ -1,0 +1,15 @@
+name: 'Test'
+on:
+  workflow_dispatch:
+jobs:
+  Explore-Artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello"
+      - run: echo "some content" > file.txt
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-without-markdown
+          path: |
+            file.txt
