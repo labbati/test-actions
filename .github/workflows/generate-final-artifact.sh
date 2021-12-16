@@ -20,9 +20,9 @@ mkdir -p $tmp_folder_tracer
 mkdir -p $tmp_folder_profiler
 mkdir -p $tmp_folder_final
 
-##############
+########################
 # Tracer
-##############
+########################
 curl -L -o $tmp_folder_tracer_archive $tracer_url
 tar -xf $tmp_folder_tracer_archive -C $tmp_folder_tracer
 
@@ -42,9 +42,9 @@ do
     cp $tmp_folder_tracer/opt/datadog-php/extensions/ddtrace-$version-alpine.so $tmp_folder_final/x86_64-musl/datadog-library/tracer/ext/$version/datadog-trace.so
 done
 
-##############
+########################
 # Profiler
-##############
+########################
 curl -L -o $tmp_folder_profiler_archive $proflier_url
 tar -xf $tmp_folder_profiler_archive -C $tmp_folder_profiler
 
@@ -57,8 +57,8 @@ do
     cp $tmp_folder_profiler/datadog-profiling-x86_64-linux/musl/lib/$version/datadog-profiling.so $tmp_folder_final/x86_64-musl/datadog-library/profiler/ext/$version/datadog-profiling.so
 done
 
-##############
+########################
 # Final archives
-##############
+########################
 tar -czvf dd-trace-library-x86_64-gnu.tar.gz -C /tmp/dd-library-php/final/x86_64-gnu .
 tar -czvf dd-trace-library-x86_64-musl.tar.gz -C /tmp/dd-library-php/final/x86_64-musl .
