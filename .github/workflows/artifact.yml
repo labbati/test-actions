@@ -20,6 +20,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+      - run: chmod a+x ${GITHUB_WORKSPACE}/.github/workflows/generate-final-artifact.sh
       - run: |
               ${GITHUB_WORKSPACE}/.github/workflows/generate-final-artifact.sh \
                 ${{ github.event.inputs.version }} \
