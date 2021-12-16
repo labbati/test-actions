@@ -2,7 +2,7 @@
 
 set -e
 
-version=$1
+release_version=$1
 tracer_url=$2
 proflier_url=$3
 
@@ -61,8 +61,8 @@ done
 ########################
 # Final archives
 ########################
-echo "$version" > /tmp/dd-library-php/final/x86_64-gnu/datadog-library/VERSION
+echo "$release_version" > /tmp/dd-library-php/final/x86_64-gnu/datadog-library/VERSION
 tar -czvf dd-library-php-x86_64-gnu.tar.gz -C /tmp/dd-library-php/final/x86_64-gnu .
 
-echo "$version" > /tmp/dd-library-php/final/x86_64-musl/datadog-library/VERSION
+echo "$release_version" > /tmp/dd-library-php/final/x86_64-musl/datadog-library/VERSION
 tar -czvf dd-library-php-x86_64-musl.tar.gz -C /tmp/dd-library-php/final/x86_64-musl .
