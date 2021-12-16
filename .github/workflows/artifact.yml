@@ -9,14 +9,17 @@ on:
         description: 'Url to download the profiler'
         required: true
 jobs:
-  Explore-Artifacts:
+  Build-Final-Artifact:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello"
-      - run: echo "some content" > dd-library-php.tar.gz
-      - name: Archive production artifacts
+      - run: ${GITHUB_WORKSPACE}/.github/workflows/generate-final-artifact.sh
+      - name: Archive GNU production artifact
         uses: actions/upload-artifact@v2
         with:
-          name: dd-library-php.tar.gz
-          path: |
-            dd-library-php.tar.gz
+          name: dd-trace-library-x86_64-gnu.tar.gz
+          path: dd-trace-library-x86_64-gnu.tar.gz
+      - name: Archive musl production artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dd-trace-library-x86_64-musl.tar.gz
+          path: dd-trace-library-x86_64-musl.tar.gz
