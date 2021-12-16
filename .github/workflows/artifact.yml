@@ -14,7 +14,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
-      - run: ${GITHUB_WORKSPACE}/.github/workflows/generate-final-artifact.sh
+      - run: |
+              ${GITHUB_WORKSPACE}/.github/workflows/generate-final-artifact.sh \
+                ${{ github.event.inputs.tracer_url }} \
+                ${{ github.event.inputs.profiler_url }} \
       - name: Archive GNU production artifact
         uses: actions/upload-artifact@v2
         with:
