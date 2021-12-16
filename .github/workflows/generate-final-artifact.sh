@@ -60,5 +60,5 @@ done
 ########################
 # Final archives
 ########################
-tar -czvf dd-trace-library-x86_64-gnu.tar.gz -C /tmp/dd-library-php/final/x86_64-gnu .
-tar -czvf dd-trace-library-x86_64-musl.tar.gz -C /tmp/dd-library-php/final/x86_64-musl .
+tar -czvf dd-library-php-x86_64-gnu.tar.gz -C /tmp/dd-library-php/final/x86_64-gnu .
+tar -czvf dd-library-php-x86_64-musl.tar.gz -C /tmp/dd-library-php/final/x86_64-musl .
