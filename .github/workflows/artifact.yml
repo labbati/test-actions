@@ -9,9 +9,11 @@ on:
       tracer_url:
         description: 'Url to download the tracer'
         required: true
+        default: https://791531-119990860-gh.circle-artifacts.com/0/datadog-php-tracer-1.0.0-nightly.x86_64.tar.gz
       profiler_url:
         description: 'Url to download the profiler'
         required: true
+        default: https://github.com/labbati/test-actions/releases/download/profiler/datadog-profiling-x86_64-linux.tar.gz
 jobs:
   Build-Final-Artifact:
     runs-on: ubuntu-latest
