@@ -5,11 +5,11 @@ on:
       version:
         description: 'The release version'
         required: true
-        default: 0.68.0
+        default: 0.67.0
       tracer_url:
         description: 'Url to download the tracer'
         required: true
-        default: https://github.com/DataDog/dd-trace-php/releases/download/0.68.0/datadog-php-tracer-0.68.0.x86_64.tar.gz
+        default: https://github.com/DataDog/dd-trace-php/releases/download/0.67.0/datadog-php-tracer-0.67.0.x86_64.tar.gz
       profiler_url:
         description: 'Url to download the profiler'
         required: true
