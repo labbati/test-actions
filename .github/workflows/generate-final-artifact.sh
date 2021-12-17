@@ -19,11 +19,6 @@ if [ -z "$(echo $tracer_musl_url | grep musl)" ]; then
 fi
 
 tmp_folder=/tmp/dd-library-php
-tmp_folder_tracer=$tmp_folder/tracer
-tmp_folder_tracer_archive_gnu=$tmp_folder_tracer/dd-library-php-x86_64-gnu.tar.gz
-tmp_folder_tracer_archive_musl=$tmp_folder_tracer/dd-library-php-x86_64-gnu.tar.gz
-tmp_folder_profiler=$tmp_folder/profiler
-tmp_folder_profiler_archive=$tmp_folder_profiler/datadog-profiling.tar.gz
 tmp_folder_final=$tmp_folder/final
 tmp_folder_final_gnu=$tmp_folder_final/x86_64-gnu
 tmp_folder_final_musl=$tmp_folder_final/x86_64-musl
@@ -36,6 +31,9 @@ mkdir -p $tmp_folder_final_musl
 ########################
 # Tracer
 ########################
+tmp_folder_tracer=$tmp_folder/tracer
+tmp_folder_tracer_archive_gnu=$tmp_folder_tracer/dd-library-php-x86_64-gnu.tar.gz
+tmp_folder_tracer_archive_musl=$tmp_folder_tracer/dd-library-php-x86_64-gnu.tar.gz
 mkdir -p $tmp_folder_tracer
 curl -L -o $tmp_folder_tracer_archive_gnu $tracer_gnu_url
 tar -xf $tmp_folder_tracer_archive_gnu -C $tmp_folder_final_gnu
@@ -45,6 +43,8 @@ tar -xf $tmp_folder_tracer_archive_musl -C $tmp_folder_final_musl
 ########################
 # Profiler
 ########################
+tmp_folder_profiler=$tmp_folder/profiler
+tmp_folder_profiler_archive=$tmp_folder_profiler/datadog-profiling.tar.gz
 mkdir -p $tmp_folder_profiler
 curl -L -o $tmp_folder_profiler_archive $profiler_url
 tar -xf $tmp_folder_profiler_archive -C $tmp_folder_profiler
@@ -54,8 +54,8 @@ php_apis=(20160303 20170718 20180731 20190902 20200930)
 for version in "${php_apis[@]}"
 do
     mkdir -p $tmp_folder_final/x86_64-gnu/dd-library-php/profiler/ext/$version $tmp_folder_final/x86_64-musl/dd-library-php/profiler/ext/$version
-    cp $tmp_folder_profiler/datadog-profiling-x86_64-linux/gnu/lib/$version/datadog-profiling.so $tmp_folder_final/x86_64-gnu/dd-library-php/profiler/ext/$version/datadog-profiling.so
-    cp $tmp_folder_profiler/datadog-profiling-x86_64-linux/musl/lib/$version/datadog-profiling.so $tmp_folder_final/x86_64-musl/dd-library-php/profiler/ext/$version/datadog-profiling.so
+    cp $tmp_folder_profiler/datadog-profiling/x86_64-linux-gnu/lib/php/$version/datadog-profiling.so $tmp_folder_final/x86_64-gnu/dd-library-php/profiler/ext/$version/datadog-profiling.so
+    cp $tmp_folder_profiler/datadog-profiling/x86_64-linux-musl/lib/php/$version/datadog-profiling.so $tmp_folder_final/x86_64-musl/dd-library-php/profiler/ext/$version/datadog-profiling.so
 done
 
 ########################
