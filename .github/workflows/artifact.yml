@@ -5,13 +5,17 @@ on:
       version:
         description: 'The release version'
         required: true
-        default: 0.67.0
-      tracer_url:
-        description: 'Url to download the tracer'
+        default: 0.68.0
+      tracer_gnu_url:
+        description: 'Url to the GNU tracer bundle'
         required: true
-        default: https://github.com/DataDog/dd-trace-php/releases/download/0.67.0/datadog-php-tracer-0.67.0.x86_64.tar.gz
+        default: https://799850-119990860-gh.circle-artifacts.com/0/dd-library-php-x86_64-gnu.tar.gz
+      tracer_musl_url:
+        description: 'Url to the MUSL tracer bundle'
+        required: true
+        default: https://799850-119990860-gh.circle-artifacts.com/0/dd-library-php-x86_64-musl.tar.gz
       profiler_url:
-        description: 'Url to download the profiler'
+        description: 'Url to the profiler bundle'
         required: true
         default: https://github.com/labbati/test-actions/releases/download/profiler/datadog-profiling-x86_64-linux.tar.gz
 jobs:
@@ -24,7 +28,8 @@ jobs:
       - run: |
               ${GITHUB_WORKSPACE}/.github/workflows/generate-final-artifact.sh \
                 ${{ github.event.inputs.version }} \
-                ${{ github.event.inputs.tracer_url }} \
+                ${{ github.event.inputs.tracer_gnu_url }} \
+                ${{ github.event.inputs.tracer_musl_url }} \
                 ${{ github.event.inputs.profiler_url }} \
       - name: Archive GNU production artifact
         uses: actions/upload-artifact@v2

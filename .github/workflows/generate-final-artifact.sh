@@ -4,50 +4,49 @@ set -euo pipefail
 IFS=$'\n\t'
 
 release_version=$1
-tracer_url=$2
-proflier_url=$3
+tracer_gnu_url=$2
+tracer_musl_url=$3
+profiler_url=$4
+
+if [ -z "$(echo $tracer_gnu_url | grep gnu)" ]; then
+    echo "GNU url $tracer_gnu_url has not the word 'gnu'."
+    exit 1
+fi
+
+if [ -z "$(echo $tracer_musl_url | grep musl)" ]; then
+    echo "MUSL url $tracer_musl_url has not the word 'musl'."
+    exit 1
+fi
 
 tmp_folder=/tmp/dd-library-php
 tmp_folder_tracer=$tmp_folder/tracer
-tmp_folder_tracer_archive=$tmp_folder_tracer/datadog-tracer.targ.gz
+tmp_folder_tracer_archive_gnu=$tmp_folder_tracer/dd-library-php-x86_64-gnu.tar.gz
+tmp_folder_tracer_archive_musl=$tmp_folder_tracer/dd-library-php-x86_64-gnu.tar.gz
 tmp_folder_profiler=$tmp_folder/profiler
-tmp_folder_profiler_archive=$tmp_folder_profiler/datadog-profiling.targ.gz
+tmp_folder_profiler_archive=$tmp_folder_profiler/datadog-profiling.tar.gz
 tmp_folder_final=$tmp_folder/final
-tmp_folder_final_tracer=$tmp_folder_final/tracer
-tmp_folder_final_profiler=$tmp_folder_final/profiler
+tmp_folder_final_gnu=$tmp_folder_final/x86_64-gnu
+tmp_folder_final_musl=$tmp_folder_final/x86_64-musl
 
 # Starting from a clean folder
 rm -rf $tmp_folder
-mkdir -p $tmp_folder_tracer
-mkdir -p $tmp_folder_profiler
-mkdir -p $tmp_folder_final
+mkdir -p $tmp_folder_final_gnu
+mkdir -p $tmp_folder_final_musl
 
 ########################
 # Tracer
 ########################
-curl -L -o $tmp_folder_tracer_archive $tracer_url
-tar -xf $tmp_folder_tracer_archive -C $tmp_folder_tracer
-
-# Bridge folder
-mkdir -p $tmp_folder_final/x86_64-gnu/dd-library-php/tracer $tmp_folder_final/x86_64-musl/dd-library-php/tracer
-cp -r $tmp_folder_tracer/opt/datadog-php/dd-trace-sources/bridge $tmp_folder_final/x86_64-gnu/dd-library-php/tracer
-cp -r $tmp_folder_tracer/opt/datadog-php/dd-trace-sources/bridge $tmp_folder_final/x86_64-musl/dd-library-php/tracer
-
-# Extension
-php_apis=(20100412 20121113 20131106 20151012 20160303 20170718 20180731 20190902 20200930 20210902)
-for version in "${php_apis[@]}"
-do
-    mkdir -p $tmp_folder_final/x86_64-gnu/dd-library-php/tracer/ext/$version $tmp_folder_final/x86_64-musl/dd-library-php/tracer/ext/$version
-    cp $tmp_folder_tracer/opt/datadog-php/extensions/ddtrace-$version.so $tmp_folder_final/x86_64-gnu/dd-library-php/tracer/ext/$version/datadog-trace.so
-    cp $tmp_folder_tracer/opt/datadog-php/extensions/ddtrace-$version-zts.so $tmp_folder_final/x86_64-gnu/dd-library-php/tracer/ext/$version/datadog-trace-zts.so
-    cp $tmp_folder_tracer/opt/datadog-php/extensions/ddtrace-$version-debug.so $tmp_folder_final/x86_64-gnu/dd-library-php/tracer/ext/$version/datadog-trace-debug.so
-    cp $tmp_folder_tracer/opt/datadog-php/extensions/ddtrace-$version-alpine.so $tmp_folder_final/x86_64-musl/dd-library-php/tracer/ext/$version/datadog-trace.so
-done
+mkdir -p $tmp_folder_tracer
+curl -L -o $tmp_folder_tracer_archive_gnu $tracer_gnu_url
+tar -xf $tmp_folder_tracer_archive_gnu -C $tmp_folder_final_gnu
+curl -L -o $tmp_folder_tracer_archive_musl $tracer_musl_url
+tar -xf $tmp_folder_tracer_archive_musl -C $tmp_folder_final_musl
 
 ########################
 # Profiler
 ########################
-curl -L -o $tmp_folder_profiler_archive $proflier_url
+mkdir -p $tmp_folder_profiler
+curl -L -o $tmp_folder_profiler_archive $profiler_url
 tar -xf $tmp_folder_profiler_archive -C $tmp_folder_profiler
 
 # Extension
