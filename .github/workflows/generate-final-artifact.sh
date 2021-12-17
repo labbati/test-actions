@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+IFS=$'\n\t'
 
 release_version=$1
 tracer_url=$2
