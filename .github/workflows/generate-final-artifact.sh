@@ -20,8 +20,8 @@ fi
 
 tmp_folder=/tmp/dd-library-php
 tmp_folder_final=$tmp_folder/final
-tmp_folder_final_gnu=$tmp_folder_final/x86_64-gnu
-tmp_folder_final_musl=$tmp_folder_final/x86_64-musl
+tmp_folder_final_gnu=$tmp_folder_final/x86_64-linux-gnu
+tmp_folder_final_musl=$tmp_folder_final/x86_64-linux-musl
 
 # Starting from a clean folder
 rm -rf $tmp_folder
@@ -32,8 +32,8 @@ mkdir -p $tmp_folder_final_musl
 # Trace
 ########################
 tmp_folder_trace=$tmp_folder/trace
-tmp_folder_trace_archive_gnu=$tmp_folder_trace/dd-library-php-x86_64-gnu.tar.gz
-tmp_folder_trace_archive_musl=$tmp_folder_trace/dd-library-php-x86_64-gnu.tar.gz
+tmp_folder_trace_archive_gnu=$tmp_folder_trace/dd-library-php-x86_64-linux-gnu.tar.gz
+tmp_folder_trace_archive_musl=$tmp_folder_trace/dd-library-php-x86_64-linux-gnu.tar.gz
 mkdir -p $tmp_folder_trace
 curl -L -o $tmp_folder_trace_archive_gnu $trace_gnu_url
 tar -xf $tmp_folder_trace_archive_gnu -C $tmp_folder_final_gnu
@@ -53,9 +53,9 @@ tar -xf $tmp_folder_profiling_archive -C $tmp_folder_profiling
 php_apis=(20160303 20170718 20180731 20190902 20200930)
 for version in "${php_apis[@]}"
 do
-    mkdir -p $tmp_folder_final/x86_64-gnu/dd-library-php/profiling/ext/$version $tmp_folder_final/x86_64-musl/dd-library-php/profiling/ext/$version
-    cp $tmp_folder_profiling/datadog-profiling/x86_64-linux-gnu/lib/php/$version/datadog-profiling.so $tmp_folder_final/x86_64-gnu/dd-library-php/profiling/ext/$version/datadog-profiling.so
-    cp $tmp_folder_profiling/datadog-profiling/x86_64-linux-musl/lib/php/$version/datadog-profiling.so $tmp_folder_final/x86_64-musl/dd-library-php/profiling/ext/$version/datadog-profiling.so
+    mkdir -p $tmp_folder_final/x86_64-linux-gnu/dd-library-php/profiling/ext/$version $tmp_folder_final/x86_64-linux-musl/dd-library-php/profiling/ext/$version
+    cp $tmp_folder_profiling/datadog-profiling/x86_64-linux-gnu/lib/php/$version/datadog-profiling.so $tmp_folder_final/x86_64-linux-gnu/dd-library-php/profiling/ext/$version/datadog-profiling.so
+    cp $tmp_folder_profiling/datadog-profiling/x86_64-linux-musl/lib/php/$version/datadog-profiling.so $tmp_folder_final/x86_64-linux-musl/dd-library-php/profiling/ext/$version/datadog-profiling.so
 done
 
 # Licenses
@@ -71,8 +71,8 @@ cp \
 ########################
 # Final archives
 ########################
-echo "$release_version" > /tmp/dd-library-php/final/x86_64-gnu/dd-library-php/VERSION
-tar -czvf dd-library-php-x86_64-gnu.tar.gz -C /tmp/dd-library-php/final/x86_64-gnu .
+echo "$release_version" > /tmp/dd-library-php/final/x86_64-linux-gnu/dd-library-php/VERSION
+tar -czvf dd-library-php-x86_64-linux-gnu.tar.gz -C /tmp/dd-library-php/final/x86_64-linux-gnu .
 
-echo "$release_version" > /tmp/dd-library-php/final/x86_64-musl/dd-library-php/VERSION
-tar -czvf dd-library-php-x86_64-musl.tar.gz -C /tmp/dd-library-php/final/x86_64-musl .
+echo "$release_version" > /tmp/dd-library-php/final/x86_64-linux-musl/dd-library-php/VERSION
+tar -czvf dd-library-php-x86_64-linux-musl.tar.gz -C /tmp/dd-library-php/final/x86_64-linux-musl .
