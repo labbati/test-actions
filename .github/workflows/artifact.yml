@@ -6,10 +6,10 @@ on:
         description: 'The release version'
         required: true
       trace_gnu_url:
-        description: 'Url to the GNU tracer bundle'
+        description: 'Url to the GNU trace bundle'
         required: true
       trace_musl_url:
-        description: 'Url to the MUSL tracer bundle'
+        description: 'Url to the MUSL trace bundle'
         required: true
       profiling_url:
         description: 'Url to the profiling bundle'
