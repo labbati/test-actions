@@ -26,7 +26,7 @@ jobs:
                 ${{ github.event.inputs.version }} \
                 ${{ github.event.inputs.trace_gnu_url }} \
                 ${{ github.event.inputs.trace_musl_url }} \
-                ${{ github.event.inputs.profiling_url }} \
+                ${{ github.event.inputs.profiling_url }}
       - name: Archive GNU production artifact
         uses: actions/upload-artifact@v2
         with:
